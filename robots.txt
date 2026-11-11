@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://l1tku.github.io/sitemap.xml
+Sitemap: https://l1tku.github.io/hll-spa-calculator/sitemap.xml

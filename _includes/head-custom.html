@@ -1,4 +1,8 @@
-<!-- start custom head snippets, customize with your own _includes/head-custom.html file -->
+﻿<!-- Mark the page as scripted before first paint, so the hedgehog can be held
+     back until the right image is chosen. -->
+<script>document.documentElement.className += " js";</script>
+
+<!-- Start custom head snippets, customize with your own _includes/head-custom.html file -->
 
 <!-- Setup Google Analytics -->
 {% include head-custom-google-analytics.html %}
@@ -9,4 +13,15 @@
 <link rel="icon" href="/favicon.ico" type="image/x-icon">
 <link rel="apple-touch-icon" href="/favicon.svg">
 
+<!-- Dark theme for the tools hub. See assets/css/hll.css. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/css/hll.css">
+<script src="/assets/js/project-status.js" defer></script>
+<script src="/assets/js/hedgehog-hearts.js" defer></script>
+<script src="/assets/js/secret.js" defer></script>
+
 <!-- end custom head snippets -->
+
+

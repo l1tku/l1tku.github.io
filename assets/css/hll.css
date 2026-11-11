@@ -1,0 +1,416 @@
+﻿/* ==========================================================================
+   litku.github.io
+   Dark theme layered over the GitHub Pages default theme.
+   Loaded from _includes/head-custom.html; the page itself is README.md.
+   ========================================================================== */
+
+:root {
+    --bg: #0b0c0e;
+    --line: #262a30;
+    --gold: #ffc107;
+    --red: #e56b4a;
+    --text: #c6c9cf;
+    --muted: #868b94;
+}
+
+/* ---- base ---------------------------------------------------------------- */
+
+html {
+    background-color: var(--bg);
+    background-image:
+        radial-gradient(1100px 520px at 50% -12%, rgba(255, 193, 7, 0.08), transparent 62%),
+        radial-gradient(900px 460px at 106% 108%, rgba(229, 107, 74, 0.06), transparent 60%);
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+}
+
+body {
+    color: var(--text);
+    background: transparent;
+    font-family: "Nunito", -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background: rgba(255, 193, 7, 0.28);
+    color: #fff;
+}
+
+::-webkit-scrollbar { width: 12px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: #2a2e35; border-radius: 6px; }
+::-webkit-scrollbar-thumb:hover { background: #3a3f47; }
+
+/* ---- layout -------------------------------------------------------------- */
+
+.container-lg {
+    position: relative;
+    z-index: 1;
+    max-width: 880px;
+    padding-top: clamp(70px, 11vw, 150px);
+}
+
+/* faint grid, fading out toward the bottom */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.013) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.013) 1px, transparent 1px);
+    background-size: 72px 72px;
+    -webkit-mask-image: radial-gradient(ellipse 130% 85% at 50% 0%, #000 0%, rgba(0, 0, 0, 0.45) 50%, transparent 85%);
+    mask-image: radial-gradient(ellipse 130% 85% at 50% 0%, #000 0%, rgba(0, 0, 0, 0.45) 50%, transparent 85%);
+}
+
+/* film grain */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    background-size: 180px 180px;
+}
+
+/* liquid band, drawn by assets/js/liquid-top.js */
+.liquid-top {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: clamp(120px, 16vw, 210px);
+    display: block;
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* ---- theme title --------------------------------------------------------- */
+
+/* the theme injects the site name as the first h1; the page prints its own */
+.markdown-body > h1:first-of-type {
+    display: none;
+}
+
+/* ---- headings ------------------------------------------------------------ */
+
+.markdown-body h1,
+.markdown-body h2,
+.markdown-body h3,
+.markdown-body h4 {
+    color: #fff;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 0.09em;
+    border-bottom: none;
+}
+
+.markdown-body h1 {
+    font-size: 2.6rem;
+    letter-spacing: 0.22em;
+    margin-bottom: 0.9rem;
+}
+
+.markdown-body h2 {
+    margin-top: 4rem;
+    padding-left: 0.75rem;
+    border-left: 3px solid var(--gold);
+    font-size: 1.15rem;
+    letter-spacing: 0.16em;
+    color: var(--gold);
+}
+
+.markdown-body h3 {
+    margin-top: 2.6rem;
+    font-size: 1.05rem;
+    letter-spacing: 0.2em;
+    color: var(--text);
+}
+
+.markdown-body h4 {
+    margin-top: 2.4rem;
+    font-size: 1rem;
+    letter-spacing: 0.12em;
+    line-height: 1.9;
+    color: #fff;
+}
+
+.markdown-body h4 a {
+    color: #fff;
+    text-decoration: none;
+}
+
+.markdown-body h4 a:hover {
+    color: var(--gold);
+    text-decoration: none;
+}
+
+/* ---- text ---------------------------------------------------------------- */
+
+.markdown-body p,
+.markdown-body li {
+    color: var(--text);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+.markdown-body div[align="center"] p {
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.markdown-body strong { color: #fff; font-weight: 700; }
+
+.markdown-body a { color: var(--gold); text-decoration: none; }
+
+.markdown-body a:hover {
+    color: #ffd75e;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.markdown-body ul li::marker { color: var(--gold); }
+
+.markdown-body hr {
+    border: 0;
+    border-top: 1px solid var(--line);
+}
+
+/* ---- images -------------------------------------------------------------- */
+
+.markdown-body img {
+    max-width: 100%;
+    background-color: transparent !important;
+    border-radius: 10px;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.55);
+}
+
+/* badges and icons carry their own styling */
+.markdown-body img[src*="img.shields.io"],
+.markdown-body img[src*="cdn.simpleicons.org"] {
+    border: 0;
+    border-radius: 0;
+    box-shadow: none;
+    vertical-align: middle;
+}
+
+.markdown-body .top-stack { margin: 1rem 0 0.7rem; }
+
+.markdown-body .top-stack img {
+    margin: 0 0.28rem;
+    border: 0;
+    box-shadow: none;
+}
+
+/* project screenshots share the column width with the prose */
+.markdown-body img[width="720"] {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    margin: 0 auto;
+}
+
+/* ---- hedgehog gifs ------------------------------------------------------- */
+
+.markdown-body img[src$=".gif"] {
+    display: inline-block;
+    margin: 1.8rem 0;
+    border: 0;
+    box-shadow: none;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-touch-callout: none;
+}
+
+.markdown-body img.hedgehog-bottom { margin-bottom: 0.35rem; }
+
+/* held back until the right image is chosen (see the inline .js guard) */
+.js .markdown-body img.hedgehog-bottom:not(.is-ready) { opacity: 0; }
+
+.markdown-body img.hedgehog-bottom.is-swapping { transition: opacity 0.18s ease; }
+
+/* ---- classified card ----------------------------------------------------- */
+
+.markdown-body .classified {
+    width: 620px;
+    max-width: 100%;
+    margin: 3rem auto 0;
+    padding: 1.6rem 1.5rem 1.4rem;
+    border: 1px dashed #3a3f47;
+    border-radius: 10px;
+    background:
+        repeating-linear-gradient(45deg, rgba(255, 255, 255, 0.018) 0 10px, transparent 10px 20px),
+        #101215;
+}
+
+.markdown-body h2 + .classified { margin-top: 1.75rem; }
+
+.markdown-body .classified h3 {
+    margin: 0 0 0.6rem;
+    color: #fff;
+}
+
+.markdown-body .classified p {
+    margin-bottom: 0.55rem;
+    color: var(--muted);
+}
+
+.markdown-body .classified .redacted {
+    margin-bottom: 0.9rem;
+    color: #3f4650;
+    font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+    letter-spacing: 0.06em;
+}
+
+.markdown-body .classified .classified-meta {
+    margin-bottom: 0;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: #5f666f;
+}
+
+/* ---- project meta and tags ----------------------------------------------- */
+
+.markdown-body .proj-meta {
+    margin: -0.6rem 0 0.55rem;
+    font-size: 0.74rem;
+    letter-spacing: 0.13em;
+    text-transform: uppercase;
+    color: #6d737c;
+}
+
+.markdown-body .proj-meta strong {
+    color: var(--gold);
+    font-weight: 700;
+}
+
+.markdown-body h4 .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: 5px;
+    padding: 0.24rem 0.5rem;
+    border: 1px solid #2a2f36;
+    border-radius: 999px;
+    background: #12151a;
+    color: #8f969f;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    line-height: 1;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.markdown-body h4 .tag-primary {
+    background: transparent;
+    border-color: rgba(255, 193, 7, 0.45);
+    color: var(--gold);
+}
+
+.markdown-body h4 .tag-primary:hover {
+    background: rgba(255, 193, 7, 0.1);
+    border-color: rgba(255, 193, 7, 0.75);
+    color: #ffd75e;
+    text-decoration: none;
+}
+
+.markdown-body h4 .tag-icons { padding: 0.2rem 0.42rem; }
+
+.markdown-body h4 .tag-icons img {
+    width: 11px;
+    height: 11px;
+    margin: 0 1px;
+    border: 0;
+    box-shadow: none;
+}
+
+/* ---- secret hint --------------------------------------------------------- */
+
+.markdown-body .secret-hint {
+    margin: 1rem 0 0;
+    font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+    color: #3f4650;
+    user-select: none;
+    outline: none;
+}
+
+.markdown-body .secret-hint .w {
+    display: inline-block;
+    margin-right: 0.55em;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.markdown-body .secret-hint .w.hidden { color: #3f4650; letter-spacing: 0.14em; }
+
+.markdown-body .secret-hint .w.hidden:hover {
+    color: #6b727c;
+    background: rgba(255, 255, 255, 0.05);
+}
+
+.markdown-body .secret-hint .w.shown { color: var(--gold); letter-spacing: 0.02em; }
+
+.markdown-body .secret-hint .w:focus-visible {
+    outline: 1px dashed rgba(255, 193, 7, 0.6);
+    outline-offset: 2px;
+}
+
+/* ---- pet reward ---------------------------------------------------------- */
+
+.markdown-body .pet-reward {
+    max-width: 640px;
+    margin: 0 auto;
+    font-family: Consolas, "SFMono-Regular", Menlo, monospace;
+    font-size: 0.82rem;
+    line-height: 1.8;
+    letter-spacing: 0.02em;
+    text-align: center;
+    color: var(--gold);
+    user-select: none;
+    -webkit-user-select: none;
+    animation: pet-reward-in 0.5s ease both;
+}
+
+.markdown-body .pet-reward span.typing::after {
+    content: "▌";
+    margin-left: 0.2em;
+    animation: pet-blink 1.1s steps(1) infinite;
+}
+
+@keyframes pet-blink {
+    50% { opacity: 0; }
+}
+
+@keyframes pet-reward-in {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: none; }
+}
+
+/* ---- small screens ------------------------------------------------------- */
+
+@media (max-width: 900px) {
+    .markdown-body .classified { width: 100%; }
+}
+
+@media (max-width: 600px) {
+    .markdown-body h1 { font-size: 1.5rem; }
+    .markdown-body h2 { margin-top: 2.2rem; }
+    .markdown-body h3 { margin-top: 1.8rem; }
+    .markdown-body .proj-meta { font-size: 0.68rem; }
+}
