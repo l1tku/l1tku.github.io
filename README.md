@@ -90,8 +90,7 @@ zones, true 1:1. Manual calculator, ballistic rulers jada jada jada.
   </a>
 </p>
 
-Want to make a defender's life a living hell in Offensive mode? Every default garrison,
-1:1 with the game, with grid references, strongpoint zones and toggleable 15m/50m rings.
+Every default garrison in Offensive mode, 1:1 with the game. Their safe space, mapped.
 
 **[Open default garrisons →](https://l1tku.github.io/hll-default-garrisons/)**
 
