@@ -104,11 +104,11 @@
             var length;
 
             if (roll < 0.32) {
-                length = 14 + rng() * 16;
+                length = 12 + rng() * 10;
             } else if (roll < 0.84) {
-                length = 34 + rng() * 46;
+                length = 24 + rng() * 18;
             } else {
-                length = 88 + rng() * 34;
+                length = 46 + rng() * 20;
             }
 
             length = Math.min(length, height - BAND - 10);

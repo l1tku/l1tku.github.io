@@ -164,6 +164,10 @@ body::after {
     margin-right: auto;
 }
 
+.markdown-body div[align="center"] p.lede {
+    max-width: 760px;
+}
+
 .markdown-body strong { color: #fff; font-weight: 700; }
 
 .markdown-body a { color: var(--gold); text-decoration: none; }
@@ -337,6 +341,30 @@ body::after {
     box-shadow: none;
 }
 
+/* ---- project cards ------------------------------------------------------- */
+
+.markdown-body .project {
+    margin: 0 0 1.5rem;
+    padding: 1.3rem;
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.02);
+    box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
+}
+
+.markdown-body .project h4 {
+    margin-top: 0;
+}
+
+.markdown-body .project img[width="720"] {
+    border: 0;
+    box-shadow: none;
+}
+
+.markdown-body .project > :last-child {
+    margin-bottom: 0;
+}
+
 /* ---- secret hint --------------------------------------------------------- */
 
 .markdown-body .secret-hint {
@@ -413,4 +441,5 @@ body::after {
     .markdown-body h2 { margin-top: 2.2rem; }
     .markdown-body h3 { margin-top: 1.8rem; }
     .markdown-body .proj-meta { font-size: 0.68rem; }
+    .markdown-body .project { padding: 1rem 0.9rem 1.1rem; border-radius: 12px; }
 }

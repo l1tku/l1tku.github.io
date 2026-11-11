@@ -1,6 +1,5 @@
-﻿/* The redacted line in About: click a word to read it. One open at a time.
-   Once every word has been seen (or the hedgehog egg fires), the whole riddle
-   is revealed and stays that way. */
+﻿/* Redacted line in About: click a word to read it, one at a time. The whole
+   riddle is only unsealed by the hedgehog easter egg. */
 (function () {
     "use strict";
 
@@ -10,8 +9,6 @@
     var KEY = "secret-solved";
     var hint = secret.getAttribute("data-hint") || "";
     var words = hint.split(/\s+/).filter(Boolean);
-    var seen = Object.create(null);
-    var seenCount = 0;
     var active = -1;
     var solved = false;
 
@@ -21,11 +18,7 @@
         solved = false;
     }
 
-    if (solved) {
-        words.forEach(function (_, i) { seen[i] = true; });
-        seenCount = words.length;
-        secret.classList.add("solved");
-    }
+    if (solved) secret.classList.add("solved");
 
     function bars(word) {
         return "█".repeat(Math.max(3, Math.min(word.length, 9)));
@@ -64,8 +57,15 @@
         });
     }
 
+    function activate(i) {
+        active = active === i ? -1 : i;
+        render();
+    }
+
+    /* Called by the hedgehog easter egg; remembered across reloads. */
     function solve() {
         if (solved) return;
+
         solved = true;
         active = -1;
         secret.classList.add("solved");
@@ -75,25 +75,7 @@
         render();
     }
 
-    function activate(i) {
-        active = active === i ? -1 : i;
-
-        if (active === i && !seen[i]) {
-            seen[i] = true;
-            seenCount += 1;
-        }
-
-        if (seenCount === words.length) {
-            solve();
-            return;
-        }
-
-        render();
-    }
-
-    // the hedgehog easter egg unseals this line too
     window.secretReveal = solve;
 
     render();
 })();
-

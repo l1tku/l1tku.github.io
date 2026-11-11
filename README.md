@@ -4,9 +4,9 @@
 
 <p>Hello, stranger. I'm litku.</p>
 
-<p>Dilettante web developer with a small dose of autism and a shit ton of coffee.</p>
+<p class="lede">Dilettante web developer, 3D modeler and game modder. Small dose of autism, shit ton of coffee.</p>
 
-<p>Scroll down, or watch this cute lil bugger doing some munchies.</p>
+<p>Projects below, or watch this cute lil bugger doing some munchies.</p>
 
 <p><img src="images/jezyk.gif" alt="A hedgehog eating" width="140"></p>
 
@@ -39,6 +39,8 @@
 
 ### Hell Let Loose
 
+<div class="project" markdown="1">
+
 #### [SPA Calculator](https://l1tku.github.io/hll-spa-calculator/) <a class="tag tag-primary" href="https://github.com/l1tku/hll-spa-calculator" target="_blank" rel="noopener noreferrer">github</a> <span class="tag">web-app</span> <span class="tag tag-icons"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" width="12" height="12" alt="JavaScript" title="JavaScript"><img src="https://cdn.simpleicons.org/html5/E34F26" width="12" height="12" alt="HTML5" title="HTML5"><img src="https://cdn.simpleicons.org/css/1572B6" width="12" height="12" alt="CSS3" title="CSS3"></span>
 
 <p class="proj-meta" data-repo="hll-spa-calculator"></p>
@@ -55,6 +57,10 @@ included.
 
 **[Open the calculator →](https://l1tku.github.io/hll-spa-calculator/)**
 
+</div>
+
+<div class="project" markdown="1">
+
 #### [Arty Map Calculator](https://l1tku.github.io/hll-arty-map-calculator/) <a class="tag tag-primary" href="https://github.com/l1tku/hll-arty-map-calculator" target="_blank" rel="noopener noreferrer">github</a> <span class="tag">web-app</span> <span class="tag tag-icons"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" width="12" height="12" alt="JavaScript" title="JavaScript"><img src="https://cdn.simpleicons.org/html5/E34F26" width="12" height="12" alt="HTML5" title="HTML5"><img src="https://cdn.simpleicons.org/css/1572B6" width="12" height="12" alt="CSS3" title="CSS3"></span>
 
 <p class="proj-meta" data-repo="hll-arty-map-calculator"></p>
@@ -70,6 +76,10 @@ zones, true 1:1. Manual calculator, ballistic rulers jada jada jada.
 
 **[Open the map calculator →](https://l1tku.github.io/hll-arty-map-calculator/)**
 
+</div>
+
+<div class="project" markdown="1">
+
 #### [Default Garrisons](https://l1tku.github.io/hll-default-garrisons/) <a class="tag tag-primary" href="https://github.com/l1tku/hll-default-garrisons" target="_blank" rel="noopener noreferrer">github</a> <span class="tag">web-app</span> <span class="tag tag-icons"><img src="https://cdn.simpleicons.org/javascript/F7DF1E" width="12" height="12" alt="JavaScript" title="JavaScript"><img src="https://cdn.simpleicons.org/html5/E34F26" width="12" height="12" alt="HTML5" title="HTML5"><img src="https://cdn.simpleicons.org/css/1572B6" width="12" height="12" alt="CSS3" title="CSS3"></span>
 
 <p class="proj-meta" data-repo="hll-default-garrisons"></p>
@@ -84,6 +94,8 @@ Want to make a defender's life a living hell in Offensive mode? Every default ga
 1:1 with the game, with grid references, strongpoint zones and toggleable 15m/50m rings.
 
 **[Open default garrisons →](https://l1tku.github.io/hll-default-garrisons/)**
+
+</div>
 
 ## About
 
