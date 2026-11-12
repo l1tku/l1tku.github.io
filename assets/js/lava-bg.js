@@ -1,13 +1,32 @@
-/* Lava lamp background: one low-resolution goo layer, scaled to the viewport.
-   The CSS filter merges the blobs; this script builds and randomizes them on
-   every load. */
+﻿/* Two backgrounds: a lava field for wide screens and vertical aurora
+   curtains for portrait screens. CSS shows one of them. */
 (function () {
     "use strict";
 
     if (document.querySelector(".lava")) return;
 
-    var COLORS = ["#9ac04a", "#7fae52", "#5f9e46", "#8a9a3f", "#a8b84a", "#5f8f3f", "#b7a23a"];
-    var MOVES = ["lava-a", "lava-b", "lava-c", "lava-d", "lava-e", "lava-f", "lava-g"];
+    var COLORS = [
+        ["#d7e6a6", "#7fae52"],
+        ["#a9cf8e", "#3f7a3a"],
+        ["#f0d98a", "#c9a84a"]
+    ];
+
+    var MOVES = ["lava-a", "lava-b", "lava-c", "lava-d", "lava-e"];
+
+    var SHAPES = [
+        "58% 42% 55% 45%",
+        "45% 55% 40% 60%",
+        "60% 40% 45% 55%",
+        "50% 50% 62% 38%"
+    ];
+
+    /* left, top, width in percent of the goo layer */
+    var LAYOUTS = [
+        [[16, 8, 34], [55, 0, 30], [72, 34, 28], [8, 48, 30], [45, 64, 36]],
+        [[4, 12, 32], [33, 2, 28], [58, 34, 30], [20, 56, 34], [68, 64, 26]],
+        [[26, 4, 36], [60, 12, 26], [10, 36, 30], [46, 48, 34], [70, 70, 24]],
+        [[6, 18, 30], [42, 0, 32], [70, 22, 28], [24, 54, 34], [56, 66, 30]]
+    ];
 
     function random(min, max) {
         return min + Math.random() * (max - min);
@@ -30,33 +49,27 @@
     layer.className = "lava";
     layer.setAttribute("aria-hidden", "true");
 
-    /* One blob per cell, jittered: random every refresh, never all stacked. */
-    var cells = [];
-
-    for (var row = 0; row < 2; row++) {
-        for (var col = 0; col < 4; col++) {
-            cells.push([col, row]);
-        }
-    }
-
-    cells = shuffled(cells).slice(0, 7);
+    var layout = LAYOUTS[Math.floor(Math.random() * LAYOUTS.length)];
     var colors = shuffled(COLORS);
     var moves = shuffled(MOVES);
 
-    for (var i = 0; i < 7; i++) {
+    layout.forEach(function (spot, i) {
+        var color = colors[i % colors.length];
         var blob = document.createElement("span");
-        var cell = cells[i];
 
         blob.className = "lava__blob";
-        blob.style.left = (cell[0] * 25 + random(2, 23)).toFixed(1) + "%";
-        blob.style.top = (cell[1] * 50 + random(2, 48)).toFixed(1) + "%";
-        blob.style.width = random(20, 34).toFixed(1) + "%";
-        blob.style.background = colors[i % colors.length];
-        blob.style.animation = moves[i] + " " + random(32, 50).toFixed(1) + "s -" +
-            random(0, 40).toFixed(1) + "s infinite alternate ease-in-out";
+        blob.style.left = random(spot[0] - 4, spot[0] + 4).toFixed(1) + "%";
+        blob.style.top = random(spot[1] - 4, spot[1] + 4).toFixed(1) + "%";
+        blob.style.width = Math.min(75, random(spot[2] - 3, spot[2] + 3)).toFixed(1) + "%";
+        blob.style.borderRadius = SHAPES[Math.floor(Math.random() * SHAPES.length)];
+        blob.style.background =
+            "radial-gradient(circle at 36% 32%, " + color[0] + " 0%, " + color[1] + " 65%, transparent 100%)";
+        blob.style.animation = moves[i % moves.length] + " " + random(64, 88).toFixed(1) + "s -" +
+            random(0, 50).toFixed(1) + "s infinite alternate ease-in-out";
 
         layer.appendChild(blob);
-    }
+    });
 
     document.body.insertBefore(layer, document.body.firstChild);
 })();
+
