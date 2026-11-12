@@ -98,15 +98,15 @@ Every default garrison in Offensive mode, 1:1 with the game. Their safe space, m
 
 ## About
 
-Small tools, made properly, for the games I actually play. Most started with a
-"why doesn't this exist" in the middle of a match. Now it does, and it is free.
+Small tools, made properly, for the games I love. Most started with a
+"why doesn't this exist" in the middle of a match. Now it does, ad-free and free to use.
 
 Got a question, a bug, or an idea? Open an issue on
 [GitHub](https://github.com/l1tku) or message me on
 [Discord](https://discord.com/users/232874292604305408).
 
-If you love my tools and want to support me, you can do that here:
-[Buy Me a Coffee](https://buymeacoffee.com/litku), [Ko-fi](https://ko-fi.com/litku) or
+Tip jar: [Buy Me a Coffee](https://buymeacoffee.com/litku),
+[Ko-fi](https://ko-fi.com/litku) or
 [GitHub Sponsors](https://github.com/sponsors/l1tku).
 
 <p>Congratulations, you read all of it. Your reward is a grumpy hedgehog.
