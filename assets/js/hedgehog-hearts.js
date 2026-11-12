@@ -198,14 +198,21 @@
     function keepInView(el) {
         if (userScrolled) return;
 
+        var viewport = window.visualViewport ? window.visualViewport.height : window.innerHeight;
         var box = el.getBoundingClientRect();
-        if (box.bottom > window.innerHeight - 24) {
+
+        if (box.bottom > viewport - 24) {
             window.scrollTo(0, document.documentElement.scrollHeight);
         }
     }
 
     function typeReward(el) {
-        if (!el || reduceMotion.matches) return;
+        if (!el) return;
+
+        if (reduceMotion.matches) {
+            fillReward(el);
+            return;
+        }
 
         var lines = rewardLines(el);
         if (!lines.length) return;

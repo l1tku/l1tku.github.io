@@ -230,6 +230,9 @@ body::after {
     box-shadow: none;
     cursor: pointer;
     user-select: none;
+    touch-action: manipulation;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -webkit-user-drag: none;
@@ -404,6 +407,7 @@ body::after {
 .markdown-body .pet-reward {
     max-width: 640px;
     margin: 0 auto;
+    padding-bottom: 2.5rem;
     font-family: Consolas, "SFMono-Regular", Menlo, monospace;
     font-size: 0.82rem;
     line-height: 1.8;
