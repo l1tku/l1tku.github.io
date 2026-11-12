@@ -4,7 +4,7 @@
 
 <p>Hello, stranger. I'm litku.</p>
 
-<p class="lede">Dilettante web developer, 3D modeler and game modder. Small dose of autism, shit ton of coffee.</p>
+<p class="lede">Dilettante web developer, 3D modeler and game modder from Finland, with a small dose of autism and a shit ton of coffee.</p>
 
 <p>Projects below, or watch this cute lil bugger doing some munchies.</p>
 
@@ -98,7 +98,8 @@ Every default garrison in Offensive mode, 1:1 with the game. Their safe space, m
 
 ## About
 
-Small tools, made properly, for the games I actually play.
+Small tools, made properly, for the games I actually play. Most started with a
+"why doesn't this exist" in the middle of a match. Now it does, and it is free.
 
 Got a question, a bug, or an idea? Open an issue on
 [GitHub](https://github.com/l1tku) or message me on
@@ -108,7 +109,7 @@ If you love my tools and want to support me, you can do that here:
 [Buy Me a Coffee](https://buymeacoffee.com/litku), [Ko-fi](https://ko-fi.com/litku) or
 [GitHub Sponsors](https://github.com/sponsors/l1tku).
 
-<p>You read all of it. There's a grumpy hedgehog down there.
+<p>Congratulations, you read all of it. Your reward is a grumpy hedgehog.
 Be nice to it.</p>
 
 <p class="secret-hint" tabindex="0" data-hint="It bristles. It waits. It counts to thirty before it forgives you.">████ █████ ████████ ███ ████ ████ ███ ██ █████</p>

@@ -165,7 +165,8 @@ body::after {
 }
 
 .markdown-body div[align="center"] p.lede {
-    max-width: 760px;
+    max-width: 800px;
+    text-wrap: balance;
 }
 
 .markdown-body strong { color: #fff; font-weight: 700; }
@@ -381,21 +382,28 @@ body::after {
 }
 
 .markdown-body .secret-hint .w {
-    display: inline-block;
+    display: inline-grid;
     margin-right: 0.55em;
+    letter-spacing: 0.06em;
     cursor: pointer;
     border-radius: 3px;
     transition: color 0.15s ease, background 0.15s ease;
 }
 
-.markdown-body .secret-hint .w.hidden { color: #3f4650; letter-spacing: 0.14em; }
+.markdown-body .secret-hint .w > span { grid-area: 1 / 1; }
+
+.markdown-body .secret-hint .w.hidden { color: #3f4650; }
+
+.markdown-body .secret-hint .w.hidden .w-word { visibility: hidden; }
 
 .markdown-body .secret-hint .w.hidden:hover {
     color: #6b727c;
     background: rgba(255, 255, 255, 0.05);
 }
 
-.markdown-body .secret-hint .w.shown { color: var(--gold); letter-spacing: 0.02em; }
+.markdown-body .secret-hint .w.shown { color: var(--gold); }
+
+.markdown-body .secret-hint .w.shown .w-bars { visibility: hidden; }
 
 .markdown-body .secret-hint .w:focus-visible {
     outline: 1px dashed rgba(255, 193, 7, 0.6);

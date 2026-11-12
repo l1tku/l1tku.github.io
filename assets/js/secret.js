@@ -21,7 +21,7 @@
     if (solved) secret.classList.add("solved");
 
     function bars(word) {
-        return "█".repeat(Math.max(3, Math.min(word.length, 9)));
+        return "█".repeat(word.length);
     }
 
     function render() {
@@ -32,7 +32,21 @@
             var open = solved || i === active;
 
             span.className = "w " + (open ? "shown" : "hidden");
-            span.textContent = open ? word : bars(word);
+
+            /* Bars and word share one grid cell, so the slot is always as wide
+               as the wider of the two. Revealing a word cannot resize it. */
+            var mask = document.createElement("span");
+            mask.className = "w-bars";
+            mask.setAttribute("aria-hidden", "true");
+            mask.textContent = bars(word);
+
+            var text = document.createElement("span");
+            text.className = "w-word";
+            text.setAttribute("aria-hidden", "true");
+            text.textContent = word;
+
+            span.appendChild(mask);
+            span.appendChild(text);
 
             if (!solved) {
                 span.setAttribute("role", "button");
