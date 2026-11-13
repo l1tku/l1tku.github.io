@@ -4,7 +4,7 @@
     "use strict";
 
     var canvas = document.createElement("canvas");
-    canvas.className = "aurora-canvas";
+    canvas.className = "aurora-canvas aurora-canvas--mobile";
     canvas.setAttribute("aria-hidden", "true");
     document.body.insertBefore(canvas, document.body.firstChild);
 
@@ -106,10 +106,18 @@
         "    float rim = exp(-h * h * (30.0 / (thick * thick)));",
         /* rays are straight: the x pattern does not move with height */
         "    float rayX = x * 30.0 + shift * 7.0 + drift * mix(-1.0, 1.0, step(0.5, uRand.w));",
-        "    float upperLines = 0.55 + 0.45 * fbm(vec2(rayX * 1.2, 3.7));",
-        "    float lineGate = smoothstep(0.22, 0.38, h);",
+        "    float wide = step(1.0, uRes.x / uRes.y);",
+        "    float upperLines;",
+        "    float lineGate;",
+        "    if (wide > 0.5) {",
+        "        upperLines = 0.10 + 0.90 * fbm(vec2(rayX * 2.2, 7.0));",
+        "        lineGate = smoothstep(-0.06, -0.005, h);",
+        "    } else {",
+        "        upperLines = 0.55 + 0.45 * fbm(vec2(rayX * 1.2, 3.7));",
+        "        lineGate = smoothstep(0.22, 0.38, h);",
+        "    }",
         "    float striation = mix(1.0, upperLines, lineGate);",
-        
+
         "    float rayFade = exp(-h / (reach * thick) * 2.2);",
         "    float detail = 1.0;",
                 "    float pulse = 1.0;",
@@ -190,6 +198,64 @@
         "    return s;",
         "}",
         "",
+        "float starAt(vec2 uv, vec2 src, float size, float bright) {",
+        "    float aspect = uRes.x / uRes.y;",
+        "    vec2 pos = vec2(0.5 + (src.x - 966.0) * (1.4 / 1895.0),",
+        "                    0.96 - (src.y - 116.0) * (1.4 / 1895.0) * aspect);",
+        "    vec2 p = (uv - pos) * vec2(aspect, 1.0);",
+        "    float d = length(p);",
+        "    float core = smoothstep(size, 0.0, d);",
+        "    float halo = smoothstep(size * 3.0, 0.0, d) * 0.12;",
+        "    return (core + halo) * bright;",
+        "}",
+        "",
+        "float desktopStars(vec2 uv) {",
+        "    float s = 0.0;",
+        "    s += starAt(uv, vec2(556.0, 5.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1393.0, 4.0), 0.0011, 0.64);",
+        "    s += starAt(uv, vec2(501.0, 11.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(428.0, 25.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(480.0, 26.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1260.0, 82.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(540.0, 105.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1535.0, 104.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(966.0, 116.0), 0.0022, 0.95);",
+        "    s += starAt(uv, vec2(966.0, 116.0), 0.0045, 0.20);",
+        "    s += starAt(uv, vec2(816.0, 138.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1451.0, 156.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1237.0, 164.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(978.0, 169.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(330.0, 196.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1003.0, 225.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(685.0, 225.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1431.0, 243.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1054.0, 256.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1113.0, 266.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(788.0, 282.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1045.0, 291.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1244.0, 304.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1110.0, 307.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1408.0, 309.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(307.0, 317.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(622.0, 324.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(910.0, 326.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(494.0, 341.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(533.0, 344.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(953.0, 343.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(869.0, 347.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(725.0, 356.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(492.0, 361.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(458.0, 363.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(893.0, 390.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(457.0, 390.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1455.0, 395.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(385.0, 395.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(756.0, 396.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1030.0, 419.0), 0.0016, 0.86);",
+        "    s += starAt(uv, vec2(1198.0, 437.0), 0.0016, 0.86);",
+        "    return s;",
+        "}",
+        "",
         "float segDist(vec2 uv, vec2 a, vec2 b) {",
         "    vec2 p = uv * vec2(uRes.x / uRes.y, 1.0);",
         "    vec2 pa = p - a * vec2(uRes.x / uRes.y, 1.0);",
@@ -234,15 +300,20 @@
         "    float auroraLum = dot(auroraCore, vec3(0.2126, 0.7152, 0.0722));",
         "    float auroraLumTotal = dot(auroraCol, vec3(0.2126, 0.7152, 0.0722));",
 
+        "    float starHaze = 1.0 - smoothstep(0.015, 0.045, auroraLumTotal);",
+        "    float starMaskCore = (1.0 - smoothstep(0.004, 0.05, auroraLum)) * (1.0 - smoothstep(0.03, 0.22, a));",
+        "    float starMask = starMaskCore * starHaze;",
         "    float stars = starLayer(uv, t, 190.0, 0.955, 1.0)",
         "                + starLayer(uv, t, 280.0, 0.975, 7.0) * 0.7;",
-        /* stars only in the dark upper sky; the aurora and its glow drown them out */
-        "    float starHaze = 1.0 - smoothstep(0.015, 0.045, auroraLumTotal);",
-        "    float starMask = (1.0 - smoothstep(0.004, 0.05, auroraLum)) * (1.0 - smoothstep(0.03, 0.22, a)) * starHaze;",
-        "    float starTop = smoothstep(0.18, 0.40, uv.y);",
-        "    float starAir = 0.5 + 0.5 * smoothstep(0.12, 0.55, uv.y);",
-        "    col += vec3(0.75, 0.80, 0.92) * stars * starMask * starTop * starAir;",
-        "    col += vec3(0.82, 0.88, 1.0) * constellations(uv) * (1.0 - smoothstep(0.015, 0.06, auroraLum)) * starHaze;",
+        "    float starTop = smoothstep(0.10, 0.32, uv.y);",
+        "    float starAir = 0.65 + 0.35 * smoothstep(0.10, 0.50, uv.y);",
+        "    col += vec3(0.75, 0.80, 0.92) * stars * starMaskCore * starTop * starAir * 0.90;",
+        "    float wideSky = step(1.0, uRes.x / uRes.y);",
+        "    float skyAir = 0.35 + 0.65 * smoothstep(0.15, 0.55, uv.y);",
+        "    if (wideSky > 0.5) {",
+        "        col += vec3(0.82, 0.88, 1.0) * desktopStars(uv) * starMask * skyAir;",
+        "    }",
+        "    col += vec3(0.82, 0.88, 1.0) * constellations(uv) * (1.0 - wideSky) * (1.0 - smoothstep(0.015, 0.06, auroraLum)) * starHaze;",
         "    col += auroraCol;",
 
         "    vec2 p = uv * 2.0 - 1.0;",
@@ -383,7 +454,10 @@
         var rect = canvas.getBoundingClientRect();
         var vw = Math.max(1, Math.round(rect.width) || window.innerWidth);
         var vh = Math.max(1, Math.round(rect.height) || window.innerHeight);
-        var base = software ? 260 : Math.min(1100, Math.max(300, Math.round(vw * 3.0)));
+        var wide = vw > 700;
+        var base = software ? 260 : (wide
+            ? Math.min(1800, Math.max(900, Math.round(vw * 1.5)))
+            : Math.min(1100, Math.max(300, Math.round(vw * 3.0))));
         var scale = [1, 0.82, 0.66][level];
         var w = Math.max(160, Math.round(base * scale));
         var h = Math.round(w * vh / vw);
@@ -578,61 +652,3 @@
 
     sync();
 })();
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
