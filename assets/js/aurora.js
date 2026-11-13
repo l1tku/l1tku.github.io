@@ -380,8 +380,9 @@
     }
 
     function resize() {
-        var vw = Math.max(1, window.innerWidth);
-        var vh = Math.max(1, window.innerHeight);
+        var rect = canvas.getBoundingClientRect();
+        var vw = Math.max(1, Math.round(rect.width) || window.innerWidth);
+        var vh = Math.max(1, Math.round(rect.height) || window.innerHeight);
         var base = software ? 260 : Math.min(1100, Math.max(300, Math.round(vw * 3.0)));
         var scale = [1, 0.82, 0.66][level];
         var w = Math.max(160, Math.round(base * scale));
