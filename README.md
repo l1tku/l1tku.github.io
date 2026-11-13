@@ -118,7 +118,7 @@ Be nice to it.</p>
   <img src="images/hedgehog-angry.gif" class="hedgehog-bottom" alt="Grumpy hedgehog" width="140">
 </p>
 
-<p class="pet-reward" hidden><span>&gt; humanity_test: passed</span><br><span>&gt; humanity_faith: restored</span><br><span>&gt; good_luck: +15 years, non-refundable</span><br><span>&gt; recipient: you, stranger</span><br><span>&gt; expires: {{expires}}</span><br><span>&gt; end of transmission</span></p>
+<p class="pet-reward" hidden><span>&gt; humanity_test: passed</span><br><span>&gt; humanity_faith: restored</span><br><span>&gt; good_luck: +15 years, non-refundable</span><br><span>&gt; recipient: you, stranger</span><br><span>&gt; expires: &#123;&#123;expires&#125;&#125;</span><br><span>&gt; end of transmission</span></p>
 
 
 
