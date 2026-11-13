@@ -73,12 +73,13 @@
         "    vec3 cyan = vec3(0.62, 0.16, 0.42);",
         "    vec3 violet = vec3(0.35, 0.18, 0.65);",
         "    vec3 red = vec3(0.75, 0.12, 0.22);",
+                "    vec3 purple = vec3(0.44, 0.16, 0.62);",
+        "    vec3 pink = vec3(0.66, 0.18, 0.44);",
         "    vec3 c = green;",
-        "    c = mix(c, teal, smoothstep(0.45, 0.72, y) * 0.30);",
-        "    c = mix(c, violet, smoothstep(0.72, 0.92, y) * 0.40);",
+        "    c = mix(c, purple, smoothstep(0.42, 0.68, y) * 0.55);",
+        "    c = mix(c, pink, smoothstep(0.68, 0.90, y) * 0.55);",
         
-        "    c += vec3(0.12, 0.20, 0.55) * smoothstep(0.12, 0.0, y) * 0.2;",
-        "    return c;",
+                "    return c;",
         "}",
 
         "float fbm(vec2 p) {",
@@ -92,51 +93,103 @@
         "    return v;",
         "}",
 
-        "vec2 arc(vec2 uv, float t, float drift, float base, float shift, float amp) {",
+        "vec2 arc(vec2 uv, float t, float drift, float base, float shift, float amp, float reach) {",
         "    float x = uv.x;",
         "    float edge = base",
-        "        + sin(x * 3.1 + t * 0.12 + shift) * amp",
-        "        + sin(x * 7.3 - t * 0.08 + shift * 1.7) * amp * 0.5",
+        "        + sin(x * 3.1 + t * 0.08 + shift) * amp",
+        "        + sin(x * 7.3 - t * 0.05 + shift * 1.7) * amp * 0.5",
+        "        + sin(x * 13.0 + t * 0.06 + shift * 2.3) * amp * 0.30",
         "        ;",
         "    float h = uv.y - edge;",
-        "    float mask = smoothstep(-0.055, 0.030, h);",
-        "    float glow = exp(-max(h, 0.0) * 2.8);",
+        "    float mask = smoothstep(-0.035, 0.018, h);",
+        "    float glow = exp(-max(h, 0.0) * 3.0);",
         "    float rim = exp(-h * h * 30.0);",
         /* rays are straight: the x pattern does not move with height */
         "    float rayX = x * 30.0 + shift * 7.0 + drift * mix(-1.0, 1.0, step(0.5, uRand.w));",
-        "    float striation = 1.0;",
-        "    float reach = 0.66;",
+        "    float upperLines = 0.55 + 0.45 * fbm(vec2(rayX * 1.2, 3.7));",
+        "    float lineGate = smoothstep(0.22, 0.38, h);",
+        "    float striation = mix(1.0, upperLines, lineGate);",
+        
         "    float rayFade = exp(-h / reach * 2.2);",
-        "    float detail = 0.82 + 0.18 * fbm(vec2(rayX * 0.90, h * 9.0 + t * 0.02));",
+        "    float detail = 1.0;",
                 "    float pulse = 1.0;",
         "    float patch = 1.0;",
         "    float gaps = 1.0;",
-        "    float under = 0.04 * exp(-max(-h, 0.0) * 7.0);",
+        "    float under = 0.03 * exp(-max(-h, 0.0) * 8.0);",
         "    return vec2((mask * (glow * 0.55 * rayFade + rim * 0.40) + under) * striation * pulse * patch * gaps * detail, h);",
         "}",
 
+        "float starDot(vec2 uv, vec2 pos, float size, float bright) {",
+        "    vec2 p = (uv - pos) * vec2(uRes.x / uRes.y, 1.0);",
+        "    float d = length(p);",
+        "    float core = smoothstep(size, 0.0, d);",
+        "    float halo = smoothstep(size * 3.0, 0.0, d) * 0.12;",
+        "    return (core + halo) * bright;",
+        "}",
+        "",
+        "float constellations(vec2 uv) {",
+        "    float s = 0.0;",
+        "    s += starDot(uv, vec2(-0.045, 0.829), 0.0013, 0.62);",
+        "    s += starDot(uv, vec2(0.007, 0.901), 0.0012, 0.60);",
+        "    s += starDot(uv, vec2(0.134, 0.489), 0.0017, 0.68);",
+        "    s += starDot(uv, vec2(0.141, 0.546), 0.0019, 0.72);",
+        "    s += starDot(uv, vec2(0.159, 0.431), 0.0015, 0.65);",
+        "    s += starDot(uv, vec2(0.163, 0.965), 0.0011, 0.59);",
+        "    s += starDot(uv, vec2(0.199, 0.652), 0.0020, 0.74);",
+        "    s += starDot(uv, vec2(0.211, 0.437), 0.0014, 0.65);",
+        "    s += starDot(uv, vec2(0.269, 0.681), 0.0014, 0.64);",
+        "    s += starDot(uv, vec2(0.333, 0.735), 0.0014, 0.63);",
+        "    s += starDot(uv, vec2(0.346, 0.621), 0.0014, 0.62);",
+        "    s += starDot(uv, vec2(0.371, 0.569), 0.0016, 0.68);",
+        "    s += starDot(uv, vec2(0.371, 0.770), 0.0016, 0.67);",
+        "    s += starDot(uv, vec2(0.400, 0.540), 0.0014, 0.65);",
+        "    s += starDot(uv, vec2(0.473, 0.902), 0.0025, 0.80);",
+        "    s += starDot(uv, vec2(0.548, 0.370), 0.0014, 0.65);",
+        "    s += starDot(uv, vec2(0.602, 0.885), 0.0021, 0.75);",
+        "    s += starDot(uv, vec2(0.669, 0.624), 0.0014, 0.65);",
+        "    s += starDot(uv, vec2(0.675, 0.924), 0.0026, 0.80);",
+        "    s += starDot(uv, vec2(0.688, 0.493), 0.0016, 0.67);",
+        "    s += starDot(uv, vec2(0.721, 0.515), 0.0015, 0.65);",
+        "    s += starDot(uv, vec2(0.800, 0.899), 0.0021, 0.74);",
+        "    s += starDot(uv, vec2(0.842, 0.975), 0.0020, 0.74);",
+        "    s += starDot(uv, vec2(0.886, 0.453), 0.0013, 0.62);",
+        "    return s;",
+        "}",
+        "",
+        "float segDist(vec2 uv, vec2 a, vec2 b) {",
+        "    vec2 p = uv * vec2(uRes.x / uRes.y, 1.0);",
+        "    vec2 pa = p - a * vec2(uRes.x / uRes.y, 1.0);",
+        "    vec2 ba = (b - a) * vec2(uRes.x / uRes.y, 1.0);",
+        "    float h = clamp(dot(pa, ba) / max(dot(ba, ba), 1e-6), 0.0, 1.0);",
+        "    return length(pa - ba * h);",
+        "}",
+        "",
+        "float constellationLines(vec2 uv) {",
+        "    float s = 0.0;",
+        "    return s;",
+        "}",
+        "",
         "void main() {",
         "    vec2 uv = gl_FragCoord.xy / uRes;",
         "    float t = uTime;",
         /* horizon light pollution, blue-violet air, deep space above */
         "    vec3 col = mix(vec3(0.072, 0.052, 0.078), vec3(0.020, 0.023, 0.052), smoothstep(0.0, 0.30, uv.y));",
         "    col = mix(col, vec3(0.008, 0.011, 0.028), smoothstep(0.34, 0.92, uv.y));",
-        "    col += vec3(0.090, 0.050, 0.052) * exp(-uv.y * 5.0);",
+        "    col += vec3(0.120, 0.070, 0.060) * exp(-uv.y * 4.5);",
 
         /* aurora time: sometimes fast, sometimes almost still */
-        "    float slow = t * (0.7 + uRand.z * 0.45) + 10.0 * sin(t * 0.026) + 3.0 * sin(t * 0.11);",
-        "    float drift = t * (0.14 + uRand.z * 0.06) + 0.4 * sin(t * 0.045);",
+        "    float slow = t * (0.45 + uRand.z * 0.30) + 7.0 * sin(t * 0.020) + 2.0 * sin(t * 0.080);",
+        "    float drift = t * (0.10 + uRand.z * 0.05) + 0.3 * sin(t * 0.035);",
         "    float base1 = 0.50 + uRand.x * 0.08;",
-        "    float base2 = base1 + 0.07 + uRand.y * 0.06;",
+        "    float shift1 = uRand.x * 6.0;",
         "    float amp = 0.05 + uRand.z * 0.06;",
-        "    vec2 ar = arc(uv, slow, drift, base1, uRand.x * 6.0, amp);",
-        "    float a = ar.x;",
-        "    float alt = clamp(ar.y / 0.30, 0.0, 1.0);",
-
+        "    vec2 ar = arc(uv, slow, drift, base1, shift1, amp, 0.30 + uRand.y * 0.20);",
+        "    float alt = clamp(ar.y / 0.40, 0.0, 1.0);",
         "    float mood = 0.55;",
         "    float heat = 1.0 + 1.9 * (1.0 - smoothstep(0.30, 0.65, uv.y));",
-        "    vec3 auroraCol = auroraColor(uv.y, mood) * a * 0.55 * heat;",
-        "    auroraCol = auroraCol / (1.0 + auroraCol * 0.30);",
+        "    vec3 auroraCol = auroraColor(alt, mood) * ar.x * 0.55 * heat;",
+        "    auroraCol = auroraCol / (1.0 + auroraCol * 0.45);",
+        "    float a = ar.x;",
         "    float auroraLum = dot(auroraCol, vec3(0.2126, 0.7152, 0.0722));",
 
         "    float stars = starLayer(uv, t, 190.0, 0.955, 1.0)",
@@ -145,6 +198,7 @@
         "    float starMask = (1.0 - smoothstep(0.004, 0.05, auroraLum)) * (1.0 - smoothstep(0.03, 0.22, a));",
         "    float starTop = smoothstep(0.55, 0.80, uv.y);",
         "    col += vec3(0.75, 0.80, 0.92) * stars * starMask * starTop;",
+        "    col += vec3(0.82, 0.88, 1.0) * constellations(uv) * (1.0 - smoothstep(0.015, 0.06, auroraLum));",
         "    col += auroraCol;",
 
         "    vec2 p = uv * 2.0 - 1.0;",
@@ -479,6 +533,33 @@
 
     sync();
 })();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

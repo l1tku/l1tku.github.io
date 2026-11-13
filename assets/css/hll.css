@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    litku.github.io
    Dark theme layered over the GitHub Pages default theme.
    Loaded from _includes/head-custom.html; the page itself is README.md.
@@ -254,6 +254,7 @@ body::after {
 /* ---- images -------------------------------------------------------------- */
 
 .markdown-body img {
+    -webkit-tap-highlight-color: transparent;
     max-width: 100%;
     background-color: transparent !important;
     border-radius: 10px;
@@ -520,6 +521,7 @@ body::after {
     .markdown-body .proj-meta { font-size: 0.68rem; }
     .markdown-body .project { padding: 1rem 0.9rem 1.1rem; border-radius: 12px; }
 }
+
 
 
 
